@@ -21,8 +21,12 @@ client.on('message', msg => {
     //Check Prefix
     if(msg.content.startsWith(config.Prefix)) return;
 
+    console.log('received command');
+
     //Delete prefix
     msg.content = msg.content.slice(config.Prefix.length, msg.content.length);
+
+    console.log('command: ' + msg.content);
 
     //Basic command
     if (msg.content === 'ping') {
