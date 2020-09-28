@@ -5,7 +5,7 @@
     "discord.js": "^12.3.1"
   },
 
-  "script": {
+  "scripts": {
     "start": "node index.js"
   }
 }
