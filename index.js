@@ -8,6 +8,8 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
+
+    console.log('received message');
     //Check Prefix
     if(msg.content.startsWith(config.Prefix)) return;
 
