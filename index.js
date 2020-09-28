@@ -1,9 +1,9 @@
 // Dummy web server for Heroku
 const http = require('http');
-http.createServer(function(req, res) {
+http.createServer(function (req, res) {
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end('Hello World\n');
-}).listen(80, "0.0.0.0");
+}).listen(80, "127.0.0.1");
 
 
 const config = require('./config.json');
