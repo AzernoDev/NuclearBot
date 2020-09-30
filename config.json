@@ -1,7 +1,19 @@
 {
-  "AuthorID" : 340801056097435648,
+  "AdminID": {
+    "Author": "340801056097435648",
+    "Partner": {}
+  },
 
-  "ClientID" : 670291125361180682,
-  "Prefix" : "::",
-  "Token" : "NjcwMjkxMTI1MzYxMTgwNjgy.XisPQQ.m29SXPTWqjcK8HvqZXLuU7dWayA"
+
+  "ClientID": "670291125361180682",
+  "Prefix": {
+    "Beta": "b:",
+    "Gold": "::"
+  },
+  "Token": {
+    "Beta": "NzYwNDE0OTk2Nzg1MjY2Njg5.X3Ltpw.1mhCzihxo33-sKqx6Wlvbh1boCY",
+    "Gold": "NjcwMjkxMTI1MzYxMTgwNjgy.XisPQQ.m29SXPTWqjcK8HvqZXLuU7dWayA"
+  },
+
+  "ErrorChannelID": "760873187109765150"
 }
