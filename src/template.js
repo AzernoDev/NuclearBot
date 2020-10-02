@@ -1,4 +1,4 @@
-class Command {
+class CommandTemplate {
 
     name
     method
@@ -10,3 +10,5 @@ class Command {
         this.description = description;
     }
 }
+
+module.exports = CommandTemplate;
