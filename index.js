@@ -45,4 +45,4 @@ function SendError(_msg)
     client.channels.fetch(config.Channel.Error).then(channel => channel.send(_msg));
 }
 
-client.login(config.Token).catch(r => console.error(r));
+client.login(config.Token).then(r => console.error(r));
