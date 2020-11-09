@@ -3,6 +3,21 @@ const client = new Discord.Client();
 
 const config = require('./config.json');
 
+const fs = require('fs');
+client.commands = new Discord.Collection();
+
+const commandFiles = fs.readdirSync('./src').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+    const tmpCommands = require(`./src/${file}`);
+    const type = file.split('.')[0];
+
+    for(const command of tmpCommands) {
+        command.type = type;
+        client.commands.set(command.name, command);
+    }
+}
+
 let author;
 let channels = {log: undefined, error: undefined}
 
@@ -30,11 +45,17 @@ client.on('ready', async () => {
 client.on('message', async msg => {
 
     if (!msg.content.startsWith(config.Prefix) || msg.author.bot) return;
+
     const args = msg.content.slice(config.Prefix.length).split(' ');
+    for(let i = 0; i < args.length; i++) {
+        args[i] = args[i].toLowerCase();
+    }
 
-    if(args[0] === 'ping') await msg.reply('pong');
+    const command = args.shift();
 
-    //TODO: Add commands array
+    if(!client.commands.has(command)) return;
+    console.log(client.commands.get(command).type);
+    client.commands.get(command).method(client, args, msg);
 });
 
 // Called if the bot have any error
