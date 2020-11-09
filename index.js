@@ -12,10 +12,8 @@ for (const file of commandFiles) {
     const tmpCommands = require(`./src/${file}`);
     const type = file.split('.')[0];
 
-
     for(const command of tmpCommands) {
         command.type = type;
-
         client.commands.set(command.name, command);
     }
 }
@@ -49,9 +47,14 @@ client.on('message', async msg => {
     if (!msg.content.startsWith(config.Prefix) || msg.author.bot) return;
 
     const args = msg.content.slice(config.Prefix.length).split(' ');
-    const command = args.shift().toLowerCase();
+    for(let i = 0; i < args.length; i++) {
+        args[i] = args[i].toLowerCase();
+    }
+
+    const command = args.shift();
 
     if(!client.commands.has(command)) return;
+    console.log(client.commands.get(command).type);
     client.commands.get(command).method(client, args, msg);
 });
 
