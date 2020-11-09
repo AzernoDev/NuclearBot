@@ -10,7 +10,6 @@ module.exports = [
             {
                 msg.channel.send(`Command type : ${this.type}`)
             }
-
         } else {
             msg.reply('pong');
         }
