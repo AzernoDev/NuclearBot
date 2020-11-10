@@ -54,7 +54,6 @@ client.on('message', async msg => {
     const command = args.shift();
 
     if(!client.commands.has(command)) return;
-    console.log(client.commands.get(command).type);
     client.commands.get(command).method(client, args, msg);
 });
 
