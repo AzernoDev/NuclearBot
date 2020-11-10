@@ -19,9 +19,9 @@ module.exports = [
         minutes = minutes % 60;
         hours = hours % 24;
 
-        let strDate = `I've been running for `;
+        let strDate = `I've been running for`;
 
-        strDate += years > 0 ? `${years} years,` : ``;
+        strDate += years > 0 ? ` ${years} years,` : ``;
         strDate += months > 0 ? ` ${months} months,` : ``;
         strDate += days > 0 ? ` ${days} days,` : ``;
         strDate += hours > 0 ? ` ${hours} hours,` : ``;
