@@ -27,7 +27,7 @@ module.exports = [
         strDate += hours > 0 ? ` ${hours} hours,` : ``;
         strDate += minutes > 0 ? ` ${minutes} minutes` : ``;
         strDate += (years > 0 || months > 0 || days > 0 || hours > 0 || minutes > 0) && seconds > 0 ? ` and` : ``;
-        strDate += seconds > 0 ? ` ${seconds} seconds ` : ``;
+        strDate += seconds > 0 ? ` ${seconds} seconds` : ``;
 
         strDate += ` !`;
 
