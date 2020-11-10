@@ -12,8 +12,8 @@ module.exports = [
         let minutes = Math.floor(seconds / 60);
         let hours = Math.floor(minutes / 60);
         let days = Math.floor(hours / 24);
-        let months = 1;
-        let years = 1;
+        let months = 0;
+        let years = 0;
 
         seconds = seconds % 60;
         minutes = minutes % 60;
@@ -26,7 +26,8 @@ module.exports = [
         strDate += days > 0 ? ` ${days} days,` : ``;
         strDate += hours > 0 ? ` ${hours} hours,` : ``;
         strDate += minutes > 0 ? ` ${minutes} minutes` : ``;
-        strDate += seconds > 0 ? ` and ${seconds} seconds ` : ``;
+        strDate += (years > 0 || months > 0 || days > 0 || hours > 0 || minutes > 0) && seconds > 0 ? ` and` : ``;
+        strDate += seconds > 0 ? ` ${seconds} seconds ` : ``;
 
         strDate += ` !`;
 
