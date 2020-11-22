@@ -15,7 +15,7 @@ module.exports = [
         }
     }),
 
-    new command("tic", "My friend spam me for add this shitting command xD", function (client, args, msg) {
+    new command("tic", "My friends spammed me to add this shitting command xD", function (client, args, msg) {
 
         if(args.length > 0) {
             const arg = args.shift();
