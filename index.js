@@ -23,14 +23,14 @@ let channels = {log: undefined, error: undefined}
 
 client.on('ready', async () => {
 
-    channels.log = await client.channels.fetch(config.Channel.Log);
-    channels.error = await client.channels.fetch(config.Channel.Error);
+    channels.log = await client.channels.fetch(config.channel.log);
+    channels.error = await client.channels.fetch(config.channel.error);
 
     let logMsg = `[${await dateToString(new Date())}] - Logged in as \`${client.user.tag}\``;
     console.log(logMsg);
     channels.log.send(logMsg);
 
-    author = await client.users.fetch(config.AdminID);
+    author = await client.users.fetch(config.authorID);
     await client.user.setPresence({
         status: 'online',
         activity: {
@@ -44,9 +44,9 @@ client.on('ready', async () => {
 // Called if whenever message is created
 client.on('message', async msg => {
 
-    if (!msg.content.startsWith(config.Prefix) || msg.author.bot) return;
+    if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
 
-    const args = msg.content.slice(config.Prefix.length).split(' ');
+    const args = msg.content.slice(config.prefix.length).split(' ');
     for(let i = 0; i < args.length; i++) {
         args[i] = args[i].toLowerCase();
     }
@@ -65,7 +65,7 @@ client.on("error", error => {
     channels.error.send(errorMsg);
 });
 
-client.login(config.Token).catch(r => console.error(r));
+client.login(config.token).catch(r => console.error(r));
 
 async function dateToString(_date)
 {
