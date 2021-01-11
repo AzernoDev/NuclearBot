@@ -15,11 +15,13 @@ http.createServer(async (req, res) => {
             .then(async (channel) => {
 
                 if (!(channel instanceof Discord.TextChannel)) return
-                await channel.messages.fetch('798280707918528522')
-                    .then(async (message) => {
+                await channel.messages.fetch({limit: 1})
+                    .then(async (messages) => {
+                        let lastMessage = messages.first();
 
-                        if (!(message instanceof Discord.Message)) return
-                        await message.edit("```" + data + "```");
+                        if (!(lastMessage instanceof Discord.Message) &&
+                            lastMessage.author.id !== discordBot.id) return
+                        await lastMessage.edit("```" + data + "```");
                     }).catch(async () => {
 
                         await channel.send("```" + data + "```")
