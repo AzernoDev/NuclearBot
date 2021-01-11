@@ -24,11 +24,11 @@ client.on('ready', async () => {
     console.log(logMsg);
     client.log.send(logMsg);
 
-    client.author = await client.users.fetch(config.authorID);
+    client.creator = await client.users.fetch(config.authorID);
     await client.user.setPresence({
         status: 'online',
         activity: {
-            name: `Create by ${client.author.tag}`,
+            name: `Create by ${client.creator.tag}`,
             type: 'PLAYING',
             url: 'https://www.twitch.tv/azern0'
         }
