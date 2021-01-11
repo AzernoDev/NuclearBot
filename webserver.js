@@ -13,12 +13,16 @@ http.createServer(async (req, res) => {
 
         let channel = await discordBot.channels.fetch('798276136391147601');
 
-        if(!(channel instanceof Discord.TextChannel)) return
+        if (!(channel instanceof Discord.TextChannel)) return
         let message = await channel.messages.fetch('798280707918528522')
 
-        if(!(message instanceof Discord.Message)) return
-        await message.edit(data);
+        if (message === undefined) {
+            await channel.send("```" + data + "```")
+        } else {
 
+            if (!(message instanceof Discord.Message)) return
+            await message.edit("```" + data + "```");
+        }
         res.writeHead(200);
         res.end();
     })
