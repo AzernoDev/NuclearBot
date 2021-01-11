@@ -8,21 +8,24 @@ http.createServer(async (req, res) => {
         data += d
     })
 
-    req.on("end",async () => {
+    req.on("end", async () => {
         console.log(data);
 
-        let channel = await discordBot.channels.fetch('798276136391147601');
+        await discordBot.channels.fetch('798276136391147601')
+            .then(async (channel) => {
 
-        if (!(channel instanceof Discord.TextChannel)) return
-        let message = await channel.messages.fetch('798280707918528522')
+                if (!(channel instanceof Discord.TextChannel)) return
+                await channel.messages.fetch('798280707918528522')
+                    .then(async (message) => {
 
-        if (message === undefined) {
-            await channel.send("```" + data + "```")
-        } else {
+                        if (!(message instanceof Discord.Message)) return
+                        await message.edit("```" + data + "```");
+                    }).catch(async () => {
 
-            if (!(message instanceof Discord.Message)) return
-            await message.edit("```" + data + "```");
-        }
+                        await channel.send("```" + data + "```")
+                    })
+            })
+
         res.writeHead(200);
         res.end();
     })
