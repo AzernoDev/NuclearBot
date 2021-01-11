@@ -1,9 +1,8 @@
 const command = require('../commands');
-const config = require('../config.json');
 
 module.exports = [
     new command("msg", "Admin: can send a personnal msg on specifict channel with id", async function (client, args, msg) {
-        if(msg.author.id !== config.AdminID || args[0] === undefined || args[1] === undefined) return;
+        if(msg.author.id !== client.author || args[0] === undefined || args[1] === undefined) return;
 
         const targetChannel = await client.channels.fetch(args[0]);
         args.shift();
