@@ -13,3 +13,5 @@ http.createServer((req, res) => {
         res.end();
     })
 }).listen(8080)
+
+module.exports = http;
