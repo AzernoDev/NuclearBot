@@ -1,11 +1,8 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
-
+const client = require('./client');
 const config = require('./config.json');
 
+//search and index commands bot
 const fs = require('fs');
-client.commands = new Discord.Collection();
-
 const commandFiles = fs.readdirSync('./src').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
@@ -18,23 +15,20 @@ for (const file of commandFiles) {
     }
 }
 
-let author;
-let channels = {log: undefined, error: undefined}
-
 client.on('ready', async () => {
 
-    channels.log = await client.channels.fetch(config.channel.log);
-    channels.error = await client.channels.fetch(config.channel.error);
+    client.log = await client.channels.fetch(config.channel.log);
+    client.error = await client.channels.fetch(config.channel.error);
 
-    let logMsg = `[${await dateToString(new Date())}] - Logged in as \`${client.user.tag}\``;
+    const logMsg = `[${await dateToString(new Date())}] - Logged in as \`${client.user.tag}\``;
     console.log(logMsg);
-    channels.log.send(logMsg);
+    client.log.send(logMsg);
 
-    author = await client.users.fetch(config.authorID);
+    client.author = await client.users.fetch(config.authorID);
     await client.user.setPresence({
         status: 'online',
         activity: {
-            name: `Create by ${author.tag}`,
+            name: `Create by ${client.author.tag}`,
             type: 'PLAYING',
             url: 'https://www.twitch.tv/azern0'
         }
@@ -62,12 +56,12 @@ client.on("error", error => {
 
     const errorMsg = `client's WebSocket encountered a connection error: ${error}`
     console.error(errorMsg);
-    channels.error.send(errorMsg);
+    client.error.send(errorMsg);
 });
 
 client.login(config.token).catch(r => console.error(r));
 
 async function dateToString(_date)
 {
-    return `${_date.getUTCFullYear()}-${_date.getUTCMonth()+1}-${_date.getUTCDate()} T:${_date.getUTCHours()}:${_date.getUTCMinutes()}:${_date.getUTCSeconds()} GMT`
+    return `${_date.getUTCFullYear()}-${_date.getUTCMonth()+1}-${_date.getUTCDate()} T:${_date.getUTCHours()}:${_date.getUTCMinutes()}:${_date.getUTCSeconds()} UTC`
 }
