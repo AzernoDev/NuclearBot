@@ -33,6 +33,8 @@ client.on('ready', async () => {
             url: 'https://www.twitch.tv/azern0'
         }
     });
+
+    require('./webserver');
 });
 
 // Called if whenever message is created
