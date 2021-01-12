@@ -34,6 +34,7 @@ client.on('ready', async () => {
         }
     });
 
+    client.securityKey = config.key;
     require('./webserver');
 });
 

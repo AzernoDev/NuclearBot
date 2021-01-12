@@ -1,16 +1,26 @@
 const http = require('http');
+
 const discordBot = require('./client')
 const Discord = require('discord.js')
 
 http.createServer(async (req, res) => {
+
+    const url = new URL(req.url, `http://${req.headers.host}`)
+    const key = url.searchParams.get('key');
+
+    if(key !== discordBot.securityKey)
+    {
+        res.writeHead(401)
+        res.end();
+        return;
+    }
+
     let data = "";
     req.on("data", d => {
         data += d
     })
 
     req.on("end", async () => {
-        console.log(data);
-
         await discordBot.channels.fetch('798276136391147601')
             .then(async (channel) => {
 
