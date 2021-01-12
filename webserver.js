@@ -1,14 +1,15 @@
 const http = require('http');
 
-const discordBot = require('./client')
 const Discord = require('discord.js')
+const discordBot = require('./client')
+const config = require('./config.json')
 
 http.createServer(async (req, res) => {
 
     const url = new URL(req.url, `http://${req.headers.host}`)
     const key = url.searchParams.get('key');
 
-    if(key !== discordBot.securityKey)
+    if(key !== config.key)
     {
         res.writeHead(401)
         res.end();
