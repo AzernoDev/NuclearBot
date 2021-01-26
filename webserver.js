@@ -11,8 +11,8 @@ http.createServer(async (req, res) => {
 
     if(key !== config.key)
     {
-        res.writeHead(401)
-        res.end();
+        await res.writeHead(401)
+        await res.end();
         return;
     }
 
@@ -21,27 +21,57 @@ http.createServer(async (req, res) => {
         data += d
     })
 
-    req.on("end", async () => {
-        await discordBot.channels.fetch('798276136391147601')
-            .then(async (channel) => {
+    switch (url.pathname) {
+        case "/linkedChatDiscord/":
 
-                if (!(channel instanceof Discord.TextChannel)) return
-                await channel.messages.fetch({limit: 1})
-                    .then(async (messages) => {
-                        let lastMessage = messages.first();
+            req.on("end", async () => {
+               await discordBot.channels.fetch('803674318135099452')
+                   .then(async (channel) => {
 
-                        if (!(lastMessage instanceof Discord.Message) &&
-                            lastMessage.author.id !== discordBot.id) return
-                        await lastMessage.edit("```" + data + "```");
-                    }).catch(async () => {
+                       if(!(channel instanceof Discord.TextChannel)) return
 
-                        await channel.send("```" + data + "```")
-                    })
+                       await channel.send(data).then(async () => {
+                           await res.writeHead(200);
+                       }).catch(async () => {
+                           await res.writeHead(500);
+                       });
+                   })
+                   .catch(async () => {
+                       await res.writeHead(500);
+                   })
+
+                await res.end();
             })
 
-        res.writeHead(200);
-        res.end();
-    })
+            break;
+        default:
+
+            req.on("end", async () => {
+                await discordBot.channels.fetch('798276136391147601')
+                    .then(async (channel) => {
+
+                        if (!(channel instanceof Discord.TextChannel)) return
+
+                        await channel.messages.fetch({limit: 1})
+                            .then(async (messages) => {
+                                let lastMessage = messages.first();
+
+                                if (!(lastMessage instanceof Discord.Message) &&
+                                    lastMessage.author.id !== discordBot.id) return
+                                await lastMessage.edit("```" + data + "```");
+                            }).catch(async () => {
+
+                                await channel.send("```" + data + "```")
+                            })
+                    })
+
+                await res.writeHead(200);
+                await res.end();
+            })
+
+            break;
+    }
+
 }).listen(8080)
 
 module.exports = http;
