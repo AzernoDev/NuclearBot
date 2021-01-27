@@ -9,8 +9,7 @@ http.createServer(async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host}`)
     const key = url.searchParams.get('key');
 
-    if(key !== config.key)
-    {
+    if (key !== config.key) {
         await res.writeHead(401)
         await res.end();
         return;
@@ -25,22 +24,16 @@ http.createServer(async (req, res) => {
         case "/linkedChatDiscord/":
 
             req.on("end", async () => {
-               await discordBot.channels.fetch('803674318135099452')
-                   .then(async (channel) => {
+                res.writeHead(200);
+                res.end();
 
-                       if(!(channel instanceof Discord.TextChannel)) return
+                await discordBot.channels.fetch('803674318135099452')
+                    .then(async (channel) => {
 
-                       await channel.send(data).then(async () => {
-                           await res.writeHead(200);
-                       }).catch(async () => {
-                           await res.writeHead(500);
-                       });
-                   })
-                   .catch(async () => {
-                       await res.writeHead(500);
-                   })
+                        if (!(channel instanceof Discord.TextChannel)) return
+                        await channel.send(data)
+                    })
 
-                await res.end();
             })
 
             break;
