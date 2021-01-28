@@ -8,9 +8,6 @@ const linkedChatDiscord = require('./linkedChatDiscord')
 
 http.createServer(async (req, res) => {
 
-    linkedChatDiscord.init(await discordBot.channels.fetch('670928581559582722')
-        .catch(reason => console.error(reason)))
-
     const url = new URL(req.url, `http://${req.headers.host}`)
     const key = url.searchParams.get('key');
 
@@ -31,7 +28,7 @@ http.createServer(async (req, res) => {
 
             req.on("end", async () => {
 
-                await res.writeHead(linkedChatDiscord.addToBuffer(data));
+                await res.writeHead(linkedChatDiscord.addToBuffer(data, '670928581559582722'));
                 await res.end();
             })
 
