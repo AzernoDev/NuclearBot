@@ -35,6 +35,8 @@ client.on('ready', async () => {
     });
 
     require('./webserver');
+
+    console.log(parseInt(config.port));
 });
 
 // Called if whenever message is created
