@@ -1,5 +1,5 @@
-const command = require('../commands');
-const config = require('../config.json');
+const command = require('./commands');
+const config = require('../../config.json');
 
 module.exports = [
     new command("msg", "Admin: can send a personnal msg on specifict channel with id", async function (client, args, msg) {

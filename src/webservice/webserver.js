@@ -1,10 +1,15 @@
 const http = require('http');
 
 const Discord = require('discord.js')
-const discordBot = require('./client')
-const config = require('./config.json')
+const discordBot = require('../../client')
+const config = require('../../config.json')
+
+const linkedChatDiscord = require('./linkedChatDiscord')
 
 http.createServer(async (req, res) => {
+
+    linkedChatDiscord.init(await discordBot.channels.fetch('670928581559582722')
+        .catch(reason => console.error(reason)))
 
     const url = new URL(req.url, `http://${req.headers.host}`)
     const key = url.searchParams.get('key');
@@ -25,16 +30,9 @@ http.createServer(async (req, res) => {
         case "/linkedChatDiscord/":
 
             req.on("end", async () => {
-                res.writeHead(200);
-                res.end();
 
-                await discordBot.channels.fetch('803674318135099452')
-                    .then(async (channel) => {
-
-                        if (!(channel instanceof Discord.TextChannel)) return
-                        await channel.send(data)
-                    })
-
+                await res.writeHead(linkedChatDiscord.addToBuffer(data));
+                await res.end();
             })
 
             break;
