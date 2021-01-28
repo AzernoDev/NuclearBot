@@ -20,6 +20,7 @@ http.createServer(async (req, res) => {
         data += d
     })
 
+
     switch (url.pathname) {
         case "/linkedChatDiscord/":
 
@@ -65,6 +66,6 @@ http.createServer(async (req, res) => {
             break;
     }
 
-}).listen(8080)
+}).listen(parseInt(config.port))
 
 module.exports = http;
