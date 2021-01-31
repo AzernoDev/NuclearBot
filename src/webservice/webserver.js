@@ -1,8 +1,10 @@
 const http = require('http');
 
 const Discord = require('discord.js')
-const discordBot = require('./client')
-const config = require('./config.json')
+const discordBot = require('../../client')
+const config = require('../../config.json')
+
+const linkedChatDiscord = require('./linkedChatDiscord')
 
 http.createServer(async (req, res) => {
 
@@ -20,20 +22,14 @@ http.createServer(async (req, res) => {
         data += d
     })
 
+
     switch (url.pathname) {
         case "/linkedChatDiscord/":
 
             req.on("end", async () => {
-                res.writeHead(200);
-                res.end();
 
-                await discordBot.channels.fetch('803674318135099452')
-                    .then(async (channel) => {
-
-                        if (!(channel instanceof Discord.TextChannel)) return
-                        await channel.send(data)
-                    })
-
+                await res.writeHead(linkedChatDiscord.addToBuffer(data, config.linkedChannel));
+                await res.end();
             })
 
             break;
@@ -65,6 +61,6 @@ http.createServer(async (req, res) => {
             break;
     }
 
-}).listen(8080)
+}).listen(parseInt(config.port))
 
 module.exports = http;

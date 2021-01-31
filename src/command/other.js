@@ -1,4 +1,4 @@
-const command = require('../commands');
+const command = require('./commands');
 
 module.exports = [
     new command("ping", "First command", function (client, args, msg) {

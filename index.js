@@ -1,21 +1,26 @@
 const client = require('./client');
 const config = require('./config.json');
 
-//search and index commands bot
-const fs = require('fs');
-const commandFiles = fs.readdirSync('./src').filter(file => file.endsWith('.js'));
-
-for (const file of commandFiles) {
-    const tmpCommands = require(`./src/${file}`);
-    const type = file.split('.')[0];
-
-    for(const command of tmpCommands) {
-        command.type = type;
-        client.commands.set(command.name, command);
-    }
-}
-
 client.on('ready', async () => {
+
+    client.token = config.token;
+
+    //search and index commands bot
+    const fs = require('fs');
+    const commandPath = './src/command'
+    const commandFiles = fs.readdirSync(commandPath).filter(file => file.endsWith('.js'));
+
+    for (const file of commandFiles) {
+        if(file !== 'commands.js') {
+            const tmpCommands = require(`${commandPath}/${file}`);
+            const type = file.split('.')[0];
+
+            for (const command of tmpCommands) {
+                command.type = type;
+                client.commands.set(command.name, command);
+            }
+        }
+    }
 
     client.log = await client.channels.fetch(config.channel.log);
     client.error = await client.channels.fetch(config.channel.error);
@@ -34,7 +39,7 @@ client.on('ready', async () => {
         }
     });
 
-    require('./webserver');
+    require('./src/webservice/webserver');
 });
 
 // Called if whenever message is created

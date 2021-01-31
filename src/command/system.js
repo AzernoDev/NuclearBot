@@ -1,4 +1,4 @@
-const command = require('../commands');
+const command = require('./commands');
 
 module.exports = [
     new command("help", "List and describe all commands", function (client, args, msg) {
