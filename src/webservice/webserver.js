@@ -28,7 +28,7 @@ http.createServer(async (req, res) => {
 
             req.on("end", async () => {
 
-                await res.writeHead(linkedChatDiscord.addToBuffer(data, '670928581559582722'));
+                await res.writeHead(linkedChatDiscord.addToBuffer(data, config.linkedChannel));
                 await res.end();
             })
 

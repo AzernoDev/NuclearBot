@@ -3,7 +3,7 @@ const discordBot = require('../../client')
 
 let dataBuffer = []
 let channelDstID
-let maxLength = 200;
+let maxLength = 2000;
 
 module.exports.addToBuffer = function (data, channelID) {
     if (typeof data !== "string") return 400
@@ -38,4 +38,4 @@ async function SendMessage() {
         })
 }
 
-discordBot.setInterval(SendMessage, 10000);
+discordBot.setInterval(SendMessage, 1000);
