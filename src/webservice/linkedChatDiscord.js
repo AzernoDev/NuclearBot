@@ -3,7 +3,7 @@ const discordBot = require('../../client')
 
 let dataBuffer = []
 let channelDstID
-let maxLength = 20;
+let maxLength = 200;
 
 module.exports.addToBuffer = function (data, channelID) {
     if (typeof data !== "string") return 400
