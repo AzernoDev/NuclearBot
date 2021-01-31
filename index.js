@@ -3,6 +3,8 @@ const config = require('./config.json');
 
 client.on('ready', async () => {
 
+    client.token = config.token;
+
     //search and index commands bot
     const fs = require('fs');
     const commandPath = './src/command'
