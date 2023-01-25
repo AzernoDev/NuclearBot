@@ -105,3 +105,9 @@ dist
 /.idea/
 /ecosystem.config.js
 /config.json
+
+# Build folder
+/build/*
+
+# Fleet configuration
+/.fleet/

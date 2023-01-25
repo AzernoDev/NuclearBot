@@ -6,8 +6,8 @@
     "mongodb": "^3.6.3"
   },
   "scripts": {
-    "tsc": "npx tsc *",
-    "start": "node index.js"
+    "build": "tsc",
+    "start": "node ./build/index.js"
   },
   "devDependencies": {
     "typescript": "^4.9.4"
