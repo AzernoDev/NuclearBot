@@ -2,10 +2,14 @@
   "name": "discordbot",
   "version": "1.0.0",
   "dependencies": {
-    "discord.js": "^12.5.1",
+    "discord.js": "^14.7.1",
     "mongodb": "^3.6.3"
   },
   "scripts": {
+    "tsc": "npx tsc *",
     "start": "node index.js"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.4"
   }
 }

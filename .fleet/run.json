@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "name": "npm start",
+            "type": "command",
+            "workingDir": "$PROJECT_DIR$/",
+            "program": "npm",
+            "args": ["tsc", "start"],
+        }
+    ]
+}
