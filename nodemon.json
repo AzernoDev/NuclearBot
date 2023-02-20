@@ -2,5 +2,5 @@
   "watch": ["src"],
   "ext": "ts",
   "delay": 2500,
-  "exec": "npm start"
+  "exec": "ts-node -r dotenv/config src/index.ts"
 }
